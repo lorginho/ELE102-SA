@@ -1,0 +1,25 @@
+Funcionalidades implementadas:
+Movimiento Independiente de las Letras "U":
+Cada letra puede moverse en los ejes X, Y y Z.
+La letra activa puede cambiarse presionando F1.
+Rotación de las Letras "U":
+Las letras pueden rotar en el eje Z.
+Rotación de los Ejes:
+Los ejes pueden rotar en los ejes X e Y.
+La rotación de los ejes puede activarse/desactivarse con F5.
+Visualización de Información en la Barra de Título:
+La barra de título muestra la posición de la letra activa, el ancho de línea y el estado de visibilidad de los ejes.
+Sugerencias adicionales:
+Incorporar Etiquetas a los Ejes:
+
+Podríamos agregar etiquetas (X, Y, Z) a los extremos de los ejes para mayor claridad.
+Añadir Cuadrículas:
+
+Implementar una cuadrícula en los planos XY, XZ, o YZ para facilitar la visualización de la posición de las letras.
+Mejorar la Interfaz de Usuario:
+
+Agregar controles adicionales para facilitar la interacción, como botones para cambiar entre las letras activas y controles de cámara.
+Agregar Documentación:
+
+Asegurarse de que el código esté bien documentado con comentarios explicativos para cada función y sección importante.
+¿Te gustaría implementar alguna de estas sugerencias adicionales o tienes alguna otra funcionalidad en mente que te gustaría agregar?

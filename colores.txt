@@ -1,0 +1,23 @@
+Rojo: Color4(1.0f, 0.0f, 0.0f, 1.0f)
+Verde: Color4(0.0f, 1.0f, 0.0f, 1.0f)
+Azul: Color4(0.0f, 0.0f, 1.0f, 1.0f)
+Amarillo: Color4(1.0f, 1.0f, 0.0f, 1.0f)
+Cian: Color4(0.0f, 1.0f, 1.0f, 1.0f)
+Magenta: Color4(1.0f, 0.0f, 1.0f, 1.0f)
+Blanco: Color4(1.0f, 1.0f, 1.0f, 1.0f)
+Negro: Color4(0.0f, 0.0f, 0.0f, 1.0f)
+Gris Claro: Color4(0.75f, 0.75f, 0.75f, 1.0f)
+Gris Oscuro: Color4(0.25f, 0.25f, 0.25f, 1.0f)
+Naranja: Color4(1.0f, 0.5f, 0.0f, 1.0f)
+Violeta: Color4(0.5f, 0.0f, 0.5f, 1.0f)
+Rosa: Color4(1.0f, 0.75f, 0.8f, 1.0f)
+Marrón: Color4(0.6f, 0.3f, 0.0f, 1.0f)
+Turquesa: Color4(0.25f, 0.88f, 0.82f, 1.0f)
+
+
+
+// Ejemplo de cómo cambiar el color de un eje
+xAxisColor = new Color4(1.0f, 0.5f, 0.0f, 1.0f); // Naranja
+
+// Ejemplo de cómo cambiar el color de una letra U
+letters[0].Color = new Color4(0.25f, 0.88f, 0.82f, 1.0f); // Turquesa
