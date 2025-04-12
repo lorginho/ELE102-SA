@@ -4,6 +4,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace LetterU3DApp
 {
@@ -16,7 +17,12 @@ namespace LetterU3DApp
 
         // Color del fondo y de las líneas
         private Color4 backgroundColor = new Color4(0.05f, 0.1f, 0.2f, 1.0f); // Azul oscuro
-        private Color4 lineColor = new Color4(1.0f, 1.0f, 1.0f, 1.0f); // Blanco
+        
+        private Color4 lineColor = new Color4(0.5f, 0.0f, 0.5f, 1.0f); // Violeta
+        //private Color4 lineColor = new Color4(1.0f, 1.0f, 1.0f, 1.0f); // Blanco
+
+
+
 
         // Mostrar ejes y cuadrículas
         private bool showAxes = true;
@@ -48,6 +54,8 @@ namespace LetterU3DApp
             {
                 new LetterU(new Vector3(0, 0, 0)),
                 new LetterU(new Vector3(2, 0, 0)),
+                new LetterU(new Vector3(1, 0, 0)),
+                new LetterU(new Vector3(3, 0, 0)),
             };
         }
 
@@ -145,7 +153,10 @@ namespace LetterU3DApp
             int gridLines = 10;
 
             GL.LineWidth(1.0f);
+            //GL.Color4(new Color4(0.25f, 0.88f, 0.82f, 1.0f)); // Color turquesa para la cuadrícula
             GL.Color4(new Color4(0.5f, 0.5f, 0.5f, 1.0f)); // Color gris para la cuadrícula
+
+
 
             GL.Begin(PrimitiveType.Lines);
 
