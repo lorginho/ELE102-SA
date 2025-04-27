@@ -1,0 +1,60 @@
+@startuml
+actor Usuario
+participant Program
+participant Game
+participant Keyboard
+participant LetterU
+participant OpenGL
+
+== Inicio de la aplicación ==
+Usuario -> Program : Ejecuta Main()
+Program -> Game : new Game(800, 600, "Letra U")
+activate Game
+Game -> Game : OnLoad()
+Game -> OpenGL : GL.ClearColor(backgroundColor)
+Game -> OpenGL : GL.Enable(DepthTest, LineSmooth, Blend)
+Game -> Game : Crear lista de LetterU
+Game -> LetterU : new LetterU(position)
+return
+
+== Loop de ejecución ==
+Usuario -> Game : game.Run(60.0)
+
+loop Por cada frame
+    Game -> Game : OnUpdateFrame()
+    Game -> Keyboard : GetState()
+    alt Usuario presiona Escape
+        Game -> Game : Exit()
+        deactivate Game
+    else Usuario presiona F1
+        Game -> Game : Cambia letra activa
+    else Usuario presiona F5
+        Game -> Game : Toggle rotación de ejes
+    else Usuario presiona F6
+        Game -> Game : Toggle cuadrícula
+    else Usuario mueve con teclas
+        Game -> LetterU : Actualiza posición/rotación
+    end
+
+    Game -> Game : OnRenderFrame()
+    Game -> OpenGL : GL.Clear(Color | Depth)
+    Game -> OpenGL : GL.MatrixMode(Projection)
+    Game -> OpenGL : GL.LoadMatrix(perspective)
+    Game -> OpenGL : GL.MatrixMode(Modelview)
+    Game -> OpenGL : GL.LoadMatrix(lookat)
+    alt showAxes == true
+        Game -> Game : DrawAxes()
+        Game -> OpenGL : Dibuja ejes + texto
+    end
+    alt showGrid == true
+        Game -> Game : DrawGrid()
+        Game -> OpenGL : Dibuja cuadrículas
+    end
+    loop Por cada LetterU
+        Game -> LetterU : Draw()
+        LetterU -> OpenGL : GL.Begin(Lines)...GL.End()
+    end
+    Game -> OpenGL : SwapBuffers()
+end
+
+@enduml

@@ -1,0 +1,49 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Program {
+    +Main(string[] args)
+}
+
+class GameWindow
+
+class Game {
+    -List<LetterU> letters
+    -int activeLetterIndex
+    -float moveSpeed
+    -float rotationSpeed
+    -Color4 backgroundColor
+    -Color4 lineColor
+    -bool showAxes
+    -bool showGrid
+    -float lineWidth
+    -float axisRotationX
+    -float axisRotationY
+    -bool axisRotationEnabled
+    -KeyboardState previousKeyState
+    +Game(int width, int height, string title)
+    +OnLoad(EventArgs e)
+    +OnRenderFrame(FrameEventArgs e)
+    +OnResize(EventArgs e)
+    +OnUpdateFrame(FrameEventArgs e)
+}
+
+class LetterU {
+    +Vector3 Position
+    +float RotationX
+    +float RotationY
+    +float RotationZ
+    -float thickness
+    -float width
+    -float height
+    -float depth
+    +LetterU(Vector3 initialPosition)
+    +Draw()
+}
+
+Program --> Game
+Game --> GameWindow
+Game --> LetterU : contains
+LetterU --> Vector3
+
+@enduml

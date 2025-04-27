@@ -1,0 +1,34 @@
+@startuml
+actor Usuario
+
+Usuario -> Program : Ejecuta Main()
+Program -> Game : new Game(800, 600, "Letra U...")
+activate Game
+Game -> Game : OnLoad()
+Game -> Game : GL.ClearColor()
+Game -> Game : GL.Enable(DepthTest, LineSmooth, Blend)
+Game -> Game : letters = new List<LetterU>()
+Game -> LetterU : new LetterU(Vector3)
+return
+
+Usuario -> Game : Run(60.0)
+loop Cada frame
+    Game -> Game : OnUpdateFrame()
+    Game -> Keyboard : GetState()
+    alt Ejes rotando
+        Game -> Game : axisRotationX/Y +=/-= rotSpeed
+    else Mover letra activa
+        Game -> LetterU : Update Position / Rotation
+    end
+
+    Game -> Game : OnRenderFrame()
+    Game -> GL : Clear buffers
+    Game -> GL : Setup Projection + View
+    Game -> Game : DrawAxes() [si showAxes]
+    Game -> Game : DrawGrid() [si showGrid]
+    loop Por cada LetterU
+        Game -> LetterU : Draw()
+    end
+    Game -> Window : SwapBuffers()
+end
+@enduml

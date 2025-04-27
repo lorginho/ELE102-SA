@@ -1,0 +1,11 @@
+@startuml
+!include ./Program.puml
+!include ./obj/Debug/net8.0/LetterU3DApp.AssemblyInfo.puml
+!include ./obj/Debug/net8.0/LetterU3DApp.GlobalUsings.g.puml
+!include ./obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.puml
+!include ./obj/Debug/net6.0/LetterU3DApp.AssemblyInfo.puml
+!include ./obj/Debug/net6.0/LetraU3D.AssemblyInfo.puml
+!include ./obj/Debug/net6.0/LetterU3DApp.GlobalUsings.g.puml
+!include ./obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.puml
+!include ./obj/Debug/net6.0/LetraU3D.GlobalUsings.g.puml
+@enduml

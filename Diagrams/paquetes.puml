@@ -1,0 +1,30 @@
+@startuml
+package "MainApp" {
+  class Program
+  class Game
+}
+
+package "Input" {
+  class KeyboardInput
+}
+
+package "Graphics" {
+  class LetterU
+  class Grid
+  class Axes
+}
+
+package "OpenGL" {
+  class GL
+}
+
+Program --> Game : Ejecuta
+Game --> KeyboardInput : Lee entradas
+Game --> LetterU : Administra y dibuja letra U
+Game --> Axes : Dibuja ejes
+Game --> Grid : Dibuja cuadrícula
+Game --> GL : Llamadas a OpenGL
+
+LetterU --> GL : Dibujar líneas
+Axes --> GL : Dibujar líneas
+Grid --> GL : Dibujar líneas

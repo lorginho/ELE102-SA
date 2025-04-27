@@ -4,6 +4,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace LetterU3DApp
 {
@@ -16,10 +17,16 @@ namespace LetterU3DApp
 
         // Color del fondo y de las líneas
         private Color4 backgroundColor = new Color4(0.05f, 0.1f, 0.2f, 1.0f); // Azul oscuro
-        private Color4 lineColor = new Color4(1.0f, 1.0f, 1.0f, 1.0f); // Blanco
+        
+        private Color4 lineColor = new Color4(0.5f, 0.0f, 0.5f, 1.0f); // Violeta
+        //private Color4 lineColor = new Color4(1.0f, 1.0f, 1.0f, 1.0f); // Blanco
 
-        // Mostrar ejes
+
+
+
+        // Mostrar ejes y cuadrículas
         private bool showAxes = true;
+        private bool showGrid = false; // Desactivar cuadrículas por defecto
 
         // Ancho de línea
         private float lineWidth = 1.5f;
@@ -47,6 +54,8 @@ namespace LetterU3DApp
             {
                 new LetterU(new Vector3(0, 0, 0)),
                 new LetterU(new Vector3(2, 0, 0)),
+                new LetterU(new Vector3(1, 0, 0)),
+                new LetterU(new Vector3(3, 0, 0)),
             };
         }
 
@@ -80,9 +89,11 @@ namespace LetterU3DApp
             GL.Rotate(axisRotationX, 1.0f, 0.0f, 0.0f);
             GL.Rotate(axisRotationY, 0.0f, 1.0f, 0.0f);
 
-            // Dibujar ejes si están habilitados
+            // Dibujar ejes y cuadrículas si están habilitados
             if (showAxes)
                 DrawAxes();
+            if (showGrid)
+                DrawGrid();
 
             // Establecer ancho de línea para la U
             GL.LineWidth(lineWidth);
@@ -96,9 +107,12 @@ namespace LetterU3DApp
             GL.PopMatrix();
 
             // Mostrar información en el título de la ventana
+            var activeLetter = letters[activeLetterIndex];
             Title = $"Letra U Wireframe - Letra Activa: {activeLetterIndex + 1} | " +
+                    $"Posición: X={activeLetter.Position.X:F2}, Y={activeLetter.Position.Y:F2}, Z={activeLetter.Position.Z:F2} | " +
                     $"Ancho de línea: {lineWidth:F1} | " +
-                    $"Ejes: {(showAxes ? "Visibles" : "Ocultos")}";
+                    $"Ejes: {(showAxes ? "Visibles" : "Ocultos")} | " +
+                    $"Cuadrícula: {(showGrid ? "Visible" : "Oculta")}";
 
             SwapBuffers();
         }
@@ -126,6 +140,78 @@ namespace LetterU3DApp
             GL.Vertex3(0, 0, axisLength);
 
             GL.End();
+
+            // Dibujar etiquetas de los ejes
+            DrawText(new Vector3(axisLength, 0, 0), "X", Color4.Red);
+            DrawText(new Vector3(0, axisLength, 0), "Y", Color4.Green);
+            DrawText(new Vector3(0, 0, axisLength), "Z", Color4.Blue);
+        }
+
+        private void DrawGrid()
+        {
+            float gridSize = 1.5f;
+            int gridLines = 10;
+
+            GL.LineWidth(1.0f);
+            //GL.Color4(new Color4(0.25f, 0.88f, 0.82f, 1.0f)); // Color turquesa para la cuadrícula
+            GL.Color4(new Color4(0.5f, 0.5f, 0.5f, 1.0f)); // Color gris para la cuadrícula
+
+
+
+            GL.Begin(PrimitiveType.Lines);
+
+            // Cuadrícula en el plano XY
+            for (int i = -gridLines; i <= gridLines; i++)
+            {
+                float pos = i * (gridSize / gridLines);
+
+                GL.Vertex3(pos, -gridSize, 0);
+                GL.Vertex3(pos, gridSize, 0);
+
+                GL.Vertex3(-gridSize, pos, 0);
+                GL.Vertex3(gridSize, pos, 0);
+            }
+
+            // Cuadrícula en el plano XZ
+            for (int i = -gridLines; i <= gridLines; i++)
+            {
+                float pos = i * (gridSize / gridLines);
+
+                GL.Vertex3(pos, 0, -gridSize);
+                GL.Vertex3(pos, 0, gridSize);
+
+                GL.Vertex3(-gridSize, 0, pos);
+                GL.Vertex3(gridSize, 0, pos);
+            }
+
+            // Cuadrícula en el plano YZ
+            for (int i = -gridLines; i <= gridLines; i++)
+            {
+                float pos = i * (gridSize / gridLines);
+
+                GL.Vertex3(0, pos, -gridSize);
+                GL.Vertex3(0, pos, gridSize);
+
+                GL.Vertex3(0, -gridSize, pos);
+                GL.Vertex3(0, gridSize, pos);
+            }
+
+            GL.End();
+        }
+
+        private void DrawText(Vector3 position, string text, Color4 color)
+        {
+            // Implementación simplificada para dibujar texto en OpenGL
+            // Aquí puedes usar una biblioteca como FreeType para dibujar texto si lo deseas
+            // Por ahora, esto es solo un marcador de posición para mostrar la idea
+
+            GL.Color4(color);
+            GL.RasterPos3(position);
+
+            foreach (char c in text)
+            {
+                GL.CallLists(1, ListNameType.UnsignedByte, new byte[] { (byte)c });
+            }
         }
 
         protected override void OnResize(EventArgs e)
@@ -154,6 +240,12 @@ namespace LetterU3DApp
             if (keyState.IsKeyDown(Key.F5) && !previousKeyState.IsKeyDown(Key.F5))
             {
                 axisRotationEnabled = !axisRotationEnabled;
+            }
+
+            // Mostrar/ocultar cuadrícula al presionar F6
+            if (keyState.IsKeyDown(Key.F6) && !previousKeyState.IsKeyDown(Key.F6))
+            {
+                showGrid = !showGrid;
             }
 
             // Movimiento de la letra activa
