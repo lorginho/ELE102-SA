@@ -1,0 +1,16 @@
+@startuml
+class Game {
+    + Game(width:int, height:int, title:string)
+}
+class LetterU {
+    + RotationX : float <<get>> <<set>>
+    + RotationY : float <<get>> <<set>>
+    + RotationZ : float <<get>> <<set>>
+    + LetterU(initialPosition:Vector3)
+    + Draw() : void
+}
+class Program {
+}
+GameWindow <|-- Game
+LetterU --> "Position" Vector3
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+class Game {
+    - activeLetterIndex : int = 0
+    - <<const>> moveSpeed : float = 0.1f
+    - <<const>> rotationSpeed : float = 1.5f
+    - showAxes : bool = true
+    - showGrid : bool = false
+    - lineWidth : float = 1.5f
+    - axisRotationX : float = 0.0f
+    - axisRotationY : float = 0.0f
+    - axisRotationEnabled : bool = false
+    + Game(width:int, height:int, title:string)
+    # <<override>> OnLoad(e:EventArgs) : void
+    # <<override>> OnRenderFrame(e:FrameEventArgs) : void
+    - DrawAxes() : void
+    - DrawGrid() : void
+    - DrawText(position:Vector3, text:string, color:Color4) : void
+    # <<override>> OnResize(e:EventArgs) : void
+    # <<override>> OnUpdateFrame(e:FrameEventArgs) : void
+}
+class LetterU {
+    + RotationX : float <<get>> <<set>>
+    + RotationY : float <<get>> <<set>>
+    + RotationZ : float <<get>> <<set>>
+    - thickness : float = 0.2f
+    - width : float = 1.0f
+    - height : float = 1.5f
+    - depth : float = 0.4f
+    + LetterU(initialPosition:Vector3)
+    + Draw() : void
+}
+class Program {
+    {static} - Main(args:string[]) : void
+}
+class "List`1"<T> {
+}
+GameWindow <|-- Game
+Game --> "letters<LetterU>" "List`1"
+Game o-> "backgroundColor" Color4
+Game o-> "lineColor" Color4
+Game --> "previousKeyState" KeyboardState
+LetterU --> "Position" Vector3
+@enduml
